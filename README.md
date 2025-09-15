@@ -5,4 +5,4 @@
 - Please do not delete others' files
 - Please do not edit others' files
 - Please try to keep files neatly organized
-- If collaborating in the same file, please make a folder outside your personal folder.
+- If collaborating in the same file, please make a folder outside your personal folder. (Or just work in FINAL-SUBMISSIONS)

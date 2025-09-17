@@ -1,7 +1,10 @@
-import java.util.Random;
+/*
+* @author Andrew Martin
+*/
 
 public class Week4Program {
     public static void main(String[] args) {
+        // Declare a list of nouns
         String[] noun = {
             "you",
             "your mother",
@@ -25,6 +28,7 @@ public class Week4Program {
             "Silas Winter",
             "Christian Zalenski"
         };
+        // Declare a list of verbs
         String[] verb = {
             "sudo rm -rf /",
             "eat",
@@ -46,8 +50,14 @@ public class Week4Program {
             "mangle",
             "defenestrate",
             "blow up",
-            "kiss"
+            "kiss",
+            "sit on",
+            "write love letters to",
+            "make a popsicle out of",
+            "spill water on",
+            "go to the beach that makes you old with"
         };
+        // Declare a list of objects
         String[] object = {
             "your computer",
             "all your soup",
@@ -74,7 +84,7 @@ public class Week4Program {
             "Silas Winter",
             "Christian Zalenski"
         };
-        Random generator = new Random();
-        System.out.println("May " + noun[generator.nextInt(noun.length)] + " " + verb[generator.nextInt(verb.length)] + " " + object[generator.nextInt(object.length)]);
+        // String together an insult by picking a random element from each list
+        System.out.printf("May %s %s %s", noun[(int)(Math.random() * noun.length)], verb[(int)(Math.random() * verb.length)], object[(int)(Math.random() * object.length)]);
     }
 }

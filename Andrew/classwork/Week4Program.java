@@ -1,90 +1,53 @@
-/*
+/**
+* Program Name: Program 4
+* Program Description: ?
+* Course: CS 1131
+* Lab Section ?
+* Lab Team Name: ?
 * @author Andrew Martin
 */
 
+import java.util.Scanner;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.util.HashMap;
+
 public class Week4Program {
-    public static void main(String[] args) {
-        // Declare a list of nouns
-        String[] noun = {
-            "you",
-            "your mother",
-            "your father",
-            "that mouse over there",
-            "everything you cherish",
-            "Keanu Reeves",
-            "Gordon Ramsay",
-            "Blizzard T. Husky",
-            "Chuck Norris",
-            "a greasy rat",
-            "an assortment of strange creatures",
-            "a giant bear",
-            "Hatsune Miku",
-            "the president of The United States of America",
-            "an awesome lesbian couple",
-            "Samuel Mitchell",
-            "Charles Ceccardi",
-            "Mitchell Oneka",
-            "Arthur Socia",
-            "Silas Winter",
-            "Christian Zalenski"
-        };
-        // Declare a list of verbs
-        String[] verb = {
-            "sudo rm -rf /",
-            "eat",
-            "write terrible fanfiction about",
-            "steal",
-            "submit the wrong code for",
-            "screech loudly at",
-            "belittle",
-            "cook",
-            "kill",
-            "bear witness to",
-            "catfish",
-            "curse",
-            "insult",
-            "make a parody of",
-            "marry",
-            "dispose of",
-            "worsen",
-            "mangle",
-            "defenestrate",
-            "blow up",
-            "kiss",
-            "sit on",
-            "write love letters to",
-            "make a popsicle out of",
-            "spill water on",
-            "go to the beach that makes you old with"
-        };
-        // Declare a list of objects
-        String[] object = {
-            "your computer",
-            "all your soup",
-            "your favorite character",
-            "your extended lineage",
-            "an embarrassing mistake",
-            "your physical attributes",
-            "all your money",
-            "your CS1131 group",
-            "a pot of rancid stew",
-            "the president of The United States of America",
-            "Brazil",
-            "your face",
-            "your mother",
-            "your father",
-            "your job",
-            "your family",
-            "your student loans",
-            "you",
-            "Samuel Mitchell",
-            "Charles Ceccardi",
-            "Mitchell Oneka",
-            "Arthur Socia",
-            "Silas Winter",
-            "Christian Zalenski"
-        };
-        // String together an insult by picking a random element from each list
-        System.out.printf("May %s %s %s", noun[(int)(Math.random() * noun.length)], verb[(int)(Math.random() * verb.length)], object[(int)(Math.random() * object.length)]);
+    public static HashMap <String, String> csvParser(String dictPath){
+        HashMap <String, String> dict = new HashMap<>();
+        File dictFile = new File(dictPath);
+        try (Scanner fileReader = new Scanner(dictFile)) {
+            while (fileReader.hasNextLine()) {
+                String data = fileReader.nextLine();
+                String[] splitData = data.split(",");
+                dict.put(splitData[0], splitData[1]);
+            }
+        } catch (FileNotFoundException exception) {
+            System.out.printf("File not found at %s%n", dictPath);
+            exception.printStackTrace();
+        }
+        return dict;
+    }
+
+    public static String translator(String sentence, String dictPath){
+        HashMap <String, String> dict = csvParser(dictPath);
+        String[] splitSentence = sentence.split("\\s+|\\p{Punct}");
+        String translation = "";
+        for (int i = 0; i < splitSentence.length; i++){
+            if (dict.get(splitSentence[i].toLowerCase()) == null){
+                translation += splitSentence[i].toLowerCase();
+            } else {
+                translation += dict.get(splitSentence[i].toLowerCase());
+            }
+            translation += " ";
+        }
+        return translation.substring(0, 1).toUpperCase() + translation.substring(1);
+    }
+    public static void main(String[] args){
+        Scanner input = new Scanner(System.in);
+        System.out.print("Sentence to translate: ");
+        //"Documents/School/cs1131/cs1131-group-repo/Andrew/classwork/pirate_dictionary.csv"
+        System.out.println(translator(input.nextLine(), "pirate_dictionary.csv"));
+        input.close();
     }
 }

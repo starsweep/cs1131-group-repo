@@ -31,7 +31,8 @@ public class Week4Program {
 
     public static String translator(String sentence, String dictPath){
         HashMap <String, String> dict = csvParser(dictPath);
-        String[] splitSentence = sentence.split("\\s+|\\p{Punct}");
+        sentence = sentence.replaceAll("([\\.,])", " $1 ");
+        String[] splitSentence = sentence.split("\\s+");
         String translation = "";
         for (int i = 0; i < splitSentence.length; i++){
             if (dict.get(splitSentence[i].toLowerCase()) == null){
@@ -39,7 +40,11 @@ public class Week4Program {
             } else {
                 translation += dict.get(splitSentence[i].toLowerCase());
             }
-            translation += " ";
+            if (i + 1 < splitSentence.length){
+                if (splitSentence[i + 1].matches("\\p{Punct}") == false){
+                    translation += " ";
+                }
+            }
         }
         return translation.substring(0, 1).toUpperCase() + translation.substring(1);
     }

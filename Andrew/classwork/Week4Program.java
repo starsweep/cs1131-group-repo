@@ -41,7 +41,7 @@ public class Week4Program {
                 translation += dict.get(splitSentence[i].toLowerCase());
             }
             if (i + 1 < splitSentence.length){
-                if (splitSentence[i + 1].matches("(^\\\"\\~\\`\\p{Punct})") == false){
+                if ((splitSentence[i + 1].matches("\\p{Punct}") == false || splitSentence[i + 1].matches("\\\"|\\-")) && splitSentence[i].matches("\\\"") == false){
                     translation += " ";
                 }
             }

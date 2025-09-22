@@ -59,23 +59,21 @@ public class Week4Classwork {
         };
         // Declare a list of objects
         String[] object = {
-            "your computer",
-            "all your soup",
-            "your favorite character",
-            "your extended lineage",
-            "an embarrassing mistake",
-            "your physical attributes",
-            "all your money",
-            "your CS1131 group",
-            "a pot of rancid stew",
-            "the president of The United States of America",
+            "computer",
+            "soup",
+            "favorite character",
+            "extended lineage",
+            "physical attributes",
+            "money",
+            "CS1131 group",
+            "pot of rancid stew",
             "Brazil",
-            "your face",
-            "your mother",
-            "your father",
-            "your job",
-            "your family",
-            "your student loans",
+            "face",
+            "mother",
+            "father",
+            "job",
+            "family",
+            "student loans",
             "you",
             "Samuel Mitchell",
             "Charles Ceccardi",
@@ -85,6 +83,6 @@ public class Week4Classwork {
             "Christian Zalenski"
         };
         // String together an insult by picking a random element from each list
-        System.out.printf("May %s %s %s", noun[(int)(Math.random() * noun.length)], verb[(int)(Math.random() * verb.length)], object[(int)(Math.random() * object.length)]);
+        System.out.printf("May %s %s your %s!", noun[(int)(Math.random() * noun.length)], verb[(int)(Math.random() * verb.length)], object[(int)(Math.random() * object.length)]);
     }
 }

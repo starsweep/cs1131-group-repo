@@ -1,0 +1,9 @@
+public class Vehicle {
+	void start () {
+		System.out.println("Vehicle start");
+	}
+
+	public static void main(String [] args) {
+
+	}
+}

@@ -1,3 +1,10 @@
+/**
+* Program Name: Problem1
+* Course: CS 1131
+* Lab Group: L03
+* @Author Mitchell Oneka, Andrew Martin, Samuel Mitchell, Charles Ceccardi
+* Group Name: THE SOGGY BISCUITS
+*/
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;

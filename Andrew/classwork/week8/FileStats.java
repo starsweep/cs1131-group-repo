@@ -11,14 +11,14 @@ class FileStats {
         long fileLength = 0;
         Boolean scanned = false;
 
-        while ( scanned == false ) {
+         while ( scanned == false ) {
             System.out.print( "Enter a filename: " );
             String filePath = inputScanner.nextLine();
 
             File file = new File( filePath );
             fileLength = file.length();
 
-            try ( Scanner scanner = new Scanner( file ) ) {
+           try ( Scanner scanner = new Scanner( file ) ) {
                 while ( scanner.hasNextLine() ) {
                     fullText += scanner.nextLine() + "\n";
                     lines++;

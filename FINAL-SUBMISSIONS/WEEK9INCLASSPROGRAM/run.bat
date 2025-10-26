@@ -1,0 +1,2 @@
+javac --module-path C:\Users\SHAM\Downloads\CS1131\openjfx-25.0.1_windows-x64_bin-sdk\javafx-sdk-25.0.1\lib --add-modules javafx.controls,javafx.web BrowserProgram.java
+java --module-path C:\Users\SHAM\Downloads\CS1131\openjfx-25.0.1_windows-x64_bin-sdk\javafx-sdk-25.0.1\lib --enable-native-access=javafx.graphics --enable-native-access=javafx.web --add-modules javafx.controls,javafx.web BrowserProgram

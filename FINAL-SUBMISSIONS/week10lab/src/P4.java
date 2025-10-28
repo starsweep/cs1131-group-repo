@@ -2,8 +2,8 @@
  * @author Andrew Martin
  */
 
-class P4 {
-    int maxValue( int[] array ) {
+public class P4 {
+    public int maxValue( int[] array ) {
         P4 p4 = new P4();
         if ( array == null || array.length == 0 ) {
             return 0;

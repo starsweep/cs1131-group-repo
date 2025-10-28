@@ -15,9 +15,12 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.HashMap;
 
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.property.StringProperty;
+import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -25,6 +28,9 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.Insets;
+import javafx.scene.control.Label;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -37,6 +43,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.CornerRadii;
+import javafx.scene.paint.Color;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebEvent;
 import javafx.scene.web.WebView;
@@ -47,6 +57,7 @@ import javafx.concurrent.Worker.State;
 import javafx.concurrent.Worker;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
+import java.util.concurrent.atomic.AtomicReference;
 
 /**
  * The main class for BrowserProgram. BrowserProgram constructs the JavaFX window and
@@ -57,9 +68,10 @@ public class BrowserProgram extends Application {
 	// These variables are included to get you started.
 	private Stage stage = new Stage();
 	private BorderPane borderPane = new BorderPane();
-	 private WebView view = new WebView();
+	private WebView view = new WebView();
 	private WebEngine webEngine = new WebEngine();
 	private TextField statusbar = new TextField();
+	private	String newURL = "";
 
 	// HELPER METHODS
 	/**
@@ -118,40 +130,102 @@ public class BrowserProgram extends Application {
 	 */
 	@Override
 	public void start(Stage primaryStage) {
-		Group root = new Group();
-		Scene scene = new Scene(root, 800, 800);
-		makeStatusBar();
+		int windowWidth = 800;
+		int windowHeight = 800;
+		String defaultURL = "https://www.google.com";
+
+		VBox root = new VBox();
+		Scene scene = new Scene(root, windowWidth, windowHeight);
+	  makeStatusBar();
 		makeHtmlView();
 
 		TextField titleBar = new TextField ();
 
 		// html viewer
-		webEngine.load("https://www.youtube.com/watch?v=0tdyU_gW6WE");
 
-		//makw buttons
-		Button back = new Button("Back");
+		webEngine.load(defaultURL);
+
+		//make buttons
+		Button back = new Button("<-");
+		back.setMinWidth(30);
 		back.setLayoutX(10);
 		back.setLayoutY(5);
 
-	  Button forward = new Button("Forward");
+	  Button forward = new Button("->");
+		forward.setMinWidth(30);
 		forward.setLayoutX(55);
 		forward.setLayoutY(5);
 
-	  Button help = new Button("Help");
+	  Button help = new Button("?");
 	  help.setLayoutX(750);
 		help.setLayoutY(5);
 
-		root.getChildren().addAll(back, forward, help);
+		//Make address bar
+		TextField addressBar = new TextField();
+		addressBar.setPrefWidth(999999);
+		addressBar.setText(webEngine.getLocation());
 
+		//Creates and sets toolbar
+		HBox toolbar = new HBox(10);
+		toolbar.setAlignment(Pos.TOP_LEFT);
+
+		toolbar.getChildren().addAll(back, forward, addressBar, help);
+
+		root.getChildren().addAll(toolbar);
+		root.getChildren().add(view);
+
+		//Allows view to resize
+		VBox.setVgrow(this.view, Priority.ALWAYS);
+		
+		//setup event listeners90
+		addressBar.setOnKeyPressed(new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				switch (event.getCode()) {
+					case ENTER:
+						newURL = addressBar.getText();
+						if(!newURL.contains("https://")){
+							newURL = "https://"+newURL;
+							webEngine.load(newURL); 
+						}
+					break;
+				}
+			}
+		});
+
+		//Give purpose to buttons	
+		//Back
+		back.setOnAction(e ->{		
+				webEngine.getHistory().go(-1);
+				addressBar.setText(webEngine.getLocation());
+		});
+
+		//Forward
+		forward.setOnAction(e -> {
+				webEngine.getHistory().go(1);	
+				addressBar.setText(webEngine.getLocation());
+		});
+		// should add a statusbarpane
+		root.getChildren().add(makeStatusBar());
+
+		//Help button
+		Label helpText = new Label ("Run on Biscuits\n" + "Authors: Samuel Mitchell, Charles Ceccardi, Andrew Martin, Mitchell Oneka\n" + "Course: CS 1131\n" + "Lab Section: L03\n" + "Operations:\n" + "Back Button- Takes you back one page.\n" + "Forward Button- Takes you forward one page.\n" + "Address Bar- Type in the URL of the page you want to visit.");
+
+		helpText.setBackground( new Background( new BackgroundFill(Color.BLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+		helpText.setTextFill(Color.WHITE);
+		
+		help.setOnAction( e ->{
+			if(helpText.getParent() != root) {
+				root.getChildren().add(helpText);
+			}
+			else if (helpText.getParent() == root) {
+				root.getChildren().remove(helpText);
+			}
+		});
 		//set stage
 		stage.setTitle("Run On Biscuts");
 		stage.setScene(scene);
 		stage.show();
-
-		
-
-
-		// Build your window here.
 	}
 
 	/**

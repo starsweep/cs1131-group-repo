@@ -5,6 +5,8 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
+import java.beans.Transient;
+
 public class P4Test {
     /*
     public static void main( String[] args ) {
@@ -37,4 +39,10 @@ public class P4Test {
         assertEquals( 0, p4.maxValue( array ) );
     }
 
+    @Test
+    public void testSingleNumber() {
+        P4 p4 = new P4();
+        int[] array = {123};
+        assertEquals( 123, p4.maxValue( array ) );
+    }
 }

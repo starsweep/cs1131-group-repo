@@ -25,7 +25,16 @@ public class Week10LabTest {
 	/**
 	* DESCRIBE TEST
 	*/@Test
-	public void isPalindrome( ) { }
+		public void isPalindrome(){
+		
+		Week10Lab week10Lab = new Week10Lab();
+
+		assertEquals("aba Should = true", true,week10Lab.isPalindrome("aba"));
+
+		assertEquals("happy yppah  should = true",true week10Lab.isPalindrome("happy yppah "));
+
+		assertEquals("HIih should = true ",true week10Lab.isPalindrome("HIih"));
+	}
 
 	/**
 	* DESCRIBE TEST

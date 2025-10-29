@@ -39,7 +39,32 @@ public class Week10LabTest {
 	/**
 	* DESCRIBE TEST
 	*/
-	@Test
-	public void maxValue( ) { }
+    @Test
+    public void maxValue( ) { 
+        Week10Lab p4 = new Week10Lab();
+        int[] array = { 68, 2, 40, 24, 1, -1, 4, 4, 100, -25, 6 };
+        assertEquals( 100, p4.maxValue( array ) );
+    }
+
+    @Test
+    public void testNull() {
+        Week10Lab p4 = new Week10Lab();
+        int[] array = null;
+        assertEquals( 0, p4.maxValue( array ) );
+    }
+
+    @Test
+    public void testEmpty() {
+        Week10Lab p4 = new Week10Lab();
+        int[] array = {};
+        assertEquals( 0, p4.maxValue( array ) );
+    }
+
+    @Test
+    public void testSingleNumber() {
+        Week10Lab p4 = new Week10Lab();
+        int[] array = {123};
+        assertEquals( 123, p4.maxValue( array ) );
+    }
 
 } // END OF CLASS Week10LabTest

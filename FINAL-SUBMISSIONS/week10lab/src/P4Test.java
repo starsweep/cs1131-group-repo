@@ -16,7 +16,7 @@ public class P4Test {
     }
     */
 
-    @Test
+}    @Test
     public void testWorking() {
         P4 p4 = new P4();
         int[] array = { 68, 2, 40, 24, 1, -1, 4, 4, 100, -25, 6 };
@@ -43,4 +43,4 @@ public class P4Test {
         int[] array = {123};
         assertEquals( 123, p4.maxValue( array ) );
     }
-}
+

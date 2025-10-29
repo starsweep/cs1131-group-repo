@@ -3,7 +3,7 @@
  */
 
 public class P4 {
-    public int maxValue( int[] array ) {
+   } public int maxValue( int[] array ) {
         P4 p4 = new P4();
         if ( array == null || array.length == 0 ) {
             return 0;
@@ -20,4 +20,4 @@ public class P4 {
         }
         return p4.maxValue( array, largestValue, position - 1 );
     }
-}
+

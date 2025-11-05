@@ -4,7 +4,7 @@ import java.util.List;
 /**
  * Implements a Map using immutable Twoples.
  */
-public class GenericMap<A,B> implements MapInterface {
+public class GenericMap<A,B> extends GenericTwople {
    /**
     * A List of Twoples.
     * The first element in the Twople represents the key.
@@ -19,7 +19,7 @@ public class GenericMap<A,B> implements MapInterface {
     * @param key an unique object acting as an identifier
     * @param value a value to be associated with the key
     */
-   public void put( A key, B value ) {
+   public void put( B key, B value ) {
       GenericTwople kvp = find( key );
       if ( kvp != null ) {
          pairs.remove( kvp );
@@ -32,7 +32,7 @@ public class GenericMap<A,B> implements MapInterface {
     * @return the value associated with the key
     *         or null if not found
     */
-   public A get( B key ) {
+   public B get( B key ) {
       GenericTwople kvp = find( key );
       if ( kvp != null ) {
          return kvp.getSecond( );
@@ -60,7 +60,7 @@ public class GenericMap<A,B> implements MapInterface {
     * @return the value of the Twople removed
     *         or null if not found
     */
-   public A remove( B key ) {
+   public B remove( B key ) {
       GenericTwople kvp = find( key );
       if ( kvp != null ) {
          pairs.remove( kvp );

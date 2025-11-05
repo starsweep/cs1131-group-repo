@@ -1,7 +1,7 @@
 /**
  * Immutable 2-tuple type.
  */
-public class GenericTwople<A,B> {
+public class GenericTwople<A, B> {
 
    private final A first;
    private final B second;

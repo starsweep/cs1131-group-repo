@@ -83,28 +83,35 @@ public class DoublyLinkedList implements SimpleList {
 	 * @throws IllegalArgumentException  - if the value specified is null
 	 */
 	@Override
-	public void add ( int index, Integer value )
-			  throws IndexOutOfBoundsException, IllegalArgumentException {
-		Node newNode = new Node( value );
-		if ( index == 0 ) {
-			// add to front
-			newNode.setNext( head );
-			newNode.setPrevious( null );
-			head.setPrevious( newNode );
-			head = newNode;
-		} else {
-			// add after node at index - 1
-			Node currentNode = head;
-			for( int i = 1; i < index; i++ ) {
-				currentNode = currentNode.getNext( );
-			}
-			newNode.setNext( currentNode.getNext( ) );
-			newNode.setPrevious ( currentNode );
-			currentNode.getNext( ).setPrevious( currentNode );
-			currentNode.setNext( newNode );
+	public void add ( int index, Integer value ) throws IndexOutOfBoundsException, IllegalArgumentException {
+        Node newNode = new Node( value );
+		if (this.head == null) {
+			this.head = new Node(null);
 		}
-		size++;
-	}
+		if ( index == 0 ) {
+            // add to front
+            newNode.setNext( head );
+            newNode.setPrevious( null );
+            head.setPrevious( newNode );
+            head = newNode;
+        } else if (index == size) {
+            //add to back
+            Node currentNode = head;
+            currentNode.setNext(null);
+            head.setNext(newNode);
+        } else {
+            // add after node at index - 1
+            Node currentNode = head;
+            for( int i = 1; i < index; i++ ) {
+                currentNode = currentNode.getNext( );
+            }
+            newNode.setNext(currentNode);
+            newNode.setPrevious ( currentNode.getPrevious() );
+            currentNode.getNext( ).setPrevious( currentNode );
+            currentNode.setNext( newNode );
+        }
+        size++;
+        }
 
 	/**
 	 * Returns the value at the specified position in this list.

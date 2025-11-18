@@ -41,8 +41,7 @@ public class SinglyLinkedList implements SimpleList {
 	 * @throws IllegalArgumentException  - if the value specified is null
 	 */
 	@Override
-	public void add ( int index, Integer value )
-			  throws IndexOutOfBoundsException, IllegalArgumentException {
+	public void add ( int index, Integer value ) throws IndexOutOfBoundsException, IllegalArgumentException {
 		// validate value argument
 		if ( value == null ) {
 			throw new IllegalArgumentException( "Illegal Argument: value cannot be null." );

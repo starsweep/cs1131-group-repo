@@ -49,7 +49,10 @@ public class DoublyLinkedList implements SimpleList {
 	 */
 	@Override
 	public Integer remove ( int index ) throws IndexOutOfBoundsException {
-		// YOUR CODE HERE
+		int value = get(index);
+		getNode(index + 1).setPrevious(getNode(index - 1));
+		getNode(index - 1).setNext(getNode(index + 1));
+		return value;
 	}
 
 	/**
@@ -57,7 +60,20 @@ public class DoublyLinkedList implements SimpleList {
 	 * For example: [ 1, 2, 4, 8, 16 ]
 	 */
 	public void printList( ) {
-		// YOUR CODE HERE
+		Node current = head;
+
+		if(head == null){
+			System.out.println("List is empty");
+		}
+		else{
+			while(current != null){
+				System.out.print(current.value);
+				if(current.next != null){
+					System.out.print(", ");
+				}
+				current = current.next;
+			}
+		}
 	}
 
 	/**
@@ -65,7 +81,16 @@ public class DoublyLinkedList implements SimpleList {
 	 * backwards through the list by following the previouse node references.
 	 */
 	public void printReverse( ) {
-		// YOUR CODE HERE
+		// YOUR CODE HERE\
+		DoublyLinkedList reverse = new DoublyLinkedList();
+		int j = this.size()-1;
+		int i = 0;
+		while (j>=0){
+			reverse.add(i,this.get(j));
+			j--;
+			i++;
+		}
+		reverse.printList();
 	}
 
 	/**
@@ -80,25 +105,42 @@ public class DoublyLinkedList implements SimpleList {
 	 * @throws IllegalArgumentException  - if the value specified is null
 	 */
 	@Override
-	public void add ( int index, Integer value )
-			  throws IndexOutOfBoundsException, IllegalArgumentException {
-		Node newNode = new Node( value );
-		if ( index == 0 ) {
-			// add to front
-			newNode.setNext( head );
-			newNode.setPrevious( null );
-			head.setPrevious( newNode );
-			head = newNode;
-		} else {
-			// add after node at index - 1
-			Node currentNode = head;
-			for( int i = 1; i < index; i++ ) {
-				currentNode = currentNode.getNext( );
+	public void add ( int index, Integer value ) throws IndexOutOfBoundsException, IllegalArgumentException {
+    	// Validate arguments
+		if (index < 0 || index > size) {
+			throw new IndexOutOfBoundsException("Index Out Of Bounds: " + index);
+		}
+		if (value == null) {
+			throw new IllegalArgumentException("Cannot insert null value");
+		}
+    
+		Node newNode = new Node(value);
+    
+		if (index == 0) {
+        	// add to front
+			newNode.setNext(head);
+			newNode.setPrevious(null);
+        	if (head != null) {  //fixed null head error
+				head.setPrevious(newNode);
 			}
-			newNode.setNext( currentNode.getNext( ) );
-			newNode.setPrevious ( currentNode );
-			currentNode.getNext( ).setPrevious( currentNode );
-			currentNode.setNext( newNode );
+			head = newNode;
+		} else if (index == size) {
+			Node currentNode = head;
+			while (currentNode.getNext() != null) {
+				currentNode = currentNode.getNext();
+			}
+			currentNode.setNext(newNode);
+			newNode.setPrevious(currentNode);
+			newNode.setNext(null);
+		} else {
+			Node currentNode = head;
+        	for (int i = 0; i < index; i++) {  // fixed loop logic: i = 1 -> i = 0
+				currentNode = currentNode.getNext();
+			}
+			newNode.setNext(currentNode);
+			newNode.setPrevious(currentNode.getPrevious());
+			currentNode.getPrevious().setNext(newNode);
+			currentNode.setPrevious(newNode);
 		}
 		size++;
 	}

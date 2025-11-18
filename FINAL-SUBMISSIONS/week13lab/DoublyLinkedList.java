@@ -84,34 +84,45 @@ public class DoublyLinkedList implements SimpleList {
 	 */
 	@Override
 	public void add ( int index, Integer value ) throws IndexOutOfBoundsException, IllegalArgumentException {
-        Node newNode = new Node( value );
-		if (this.head == null) {
-			this.head = new Node(null);
-		}
-		if ( index == 0 ) {
-            // add to front
-            newNode.setNext( head );
-            newNode.setPrevious( null );
-            head.setPrevious( newNode );
-            head = newNode;
-        } else if (index == size) {
-            //add to back
-            Node currentNode = head;
-            currentNode.setNext(null);
-            head.setNext(newNode);
-        } else {
-            // add after node at index - 1
-            Node currentNode = head;
-            for( int i = 1; i < index; i++ ) {
-                currentNode = currentNode.getNext( );
-            }
-            newNode.setNext(currentNode);
-            newNode.setPrevious ( currentNode.getPrevious() );
-            currentNode.getNext( ).setPrevious( currentNode );
-            currentNode.setNext( newNode );
+    // Validate arguments
+    if (index < 0 || index > size) {
+        throw new IndexOutOfBoundsException("Index Out Of Bounds: " + index);
+    }
+    if (value == null) {
+        throw new IllegalArgumentException("Cannot insert null value");
+    }
+    
+    Node newNode = new Node(value);
+    
+    if (index == 0) {
+        // add to front
+        newNode.setNext(head);
+        newNode.setPrevious(null);
+        if (head != null) {  //fixed null head error
+            head.setPrevious(newNode);
         }
-        size++;
+        head = newNode;
+    } else if (index == size) {
+        Node currentNode = head;
+        while (currentNode.getNext() != null) {
+            currentNode = currentNode.getNext();
         }
+        currentNode.setNext(newNode);
+        newNode.setPrevious(currentNode);
+        newNode.setNext(null);
+    } else {
+        Node currentNode = head;
+        for (int i = 0; i < index; i++) {  // fixed loop logic: i = 1 -> i = 0
+            currentNode = currentNode.getNext();
+        }
+        newNode.setNext(currentNode);
+        newNode.setPrevious(currentNode.getPrevious());
+        currentNode.getPrevious().setNext(newNode);
+        currentNode.setPrevious(newNode);
+    }
+
+    size++;
+}
 
 	/**
 	 * Returns the value at the specified position in this list.

@@ -49,10 +49,43 @@ public class DoublyLinkedList implements SimpleList {
 	 */
 	@Override
 	public Integer remove ( int index ) throws IndexOutOfBoundsException {
-		int value = get(index);
-		getNode(index + 1).setPrevious(getNode(index - 1));
-		getNode(index - 1).setNext(getNode(index + 1));
+
+		Node current = head;
+		int value = 0;
+		value += getNode(index).getValue();
+		Node remove = getNode(index);
+		if (index >= 0 && index < size){
+
+
+			if(current == null)
+			{
+				return 0;
+			}
+		
+			else{
+				while(current != null){
+			
+					//int nextSet = remove.getNext().getValue();
+					//remove.setValue(nextSet);
+					getNode(index + 1).setPrevious(getNode(index - 1));
+					getNode(index - 1).setNext(getNode(index + 1));
+					getNode(index).setValue(null);
+
+						break;	
+				}
+
+			}
+
+
+
+
+	
+			
+		}
+
+
 		return value;
+		
 	}
 
 	/**

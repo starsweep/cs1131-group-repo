@@ -41,9 +41,9 @@ public abstract class AbstractClass {
     * @param method    - Euclidean, PEARSON
     * @return
     */
-   abstract HashMap< String, Double > calculateAllSimilarity( String user, String fieldName, String method  );
+   abstract  HashMap< String, Double > calculateAllSimilarity( String user, String fieldName, String method  );
    
-   /**
+  /**
     * Make a playlist for the specified user comprised of a specified
     * number of music tracks from the most similar users.
     * 
@@ -66,6 +66,7 @@ public abstract class AbstractClass {
     * trackDB maintains a list of all tracks.
     */
    private ArrayList< TrackInfo > trackDB;
+
 
    public ArrayList< TrackInfo > getTrackDB( ) {
       return trackDB;
@@ -212,7 +213,7 @@ public abstract class AbstractClass {
          Scanner fileScan = new Scanner( file );
          fileScan.nextLine( );
          while( fileScan.hasNext( ) ) {
-            String[ ] fields = fileScan.nextLine( ).split( ", " );
+            String[ ] fields = fileScan.nextLine( ).split( "," );
             String user = fields[ 0 ].trim( ).toUpperCase( );
             Integer rank = Integer.valueOf( fields[ 1 ].trim( ) );
             String title = fields[ 2 ].trim( ).toUpperCase( );
